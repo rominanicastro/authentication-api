@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // DB Setup
 mongoose.connect('mongodb://localhost:auth/auth', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -15,8 +16,11 @@ mongoose.connect('mongodb://localhost:auth/auth', { useNewUrlParser: true, useUn
 // App setup
 // middlewares
 app.use(morgan('combined'));
+const passportConfig = require("./services/passport");
+app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 router(app);
+
 
 // Server setup
 const port = process.env.PORT || 3090;
